@@ -1,6 +1,6 @@
 {
   "name": "minicraft-2d-electron-pro",
-  "version": "0.3.9",
+  "version": "0.3.10",
   "description": "Minecraft-like 2D game in Electron with LAN, world saves and auto-update",
   "main": "main.js",
   "author": "docovg",
