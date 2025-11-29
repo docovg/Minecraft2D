@@ -1,0 +1,19 @@
+directories:
+  output: dist
+  buildResources: build
+appId: com.docovg.minecraft2d
+productName: Minecraft2D
+files:
+  - filter:
+      - main.js
+      - src/**/*
+      - saves/**/*
+      - servers.json
+win:
+  target: nsis
+  icon: build/icon.ico
+publish:
+  - provider: github
+    owner: docovg
+    repo: Minecraft2D
+electronVersion: 31.7.7
