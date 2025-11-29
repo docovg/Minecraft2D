@@ -24,7 +24,6 @@
   "build": {
     "appId": "com.docovg.minecraft2d",
     "productName": "Minecraft2D",
-
     "publish": [
       {
         "provider": "github",
@@ -32,18 +31,15 @@
         "repo": "Minecraft2D"
       }
     ],
-
     "files": [
       "main.js",
       "src/**/*",
       "saves/**/*",
       "servers.json"
     ],
-
     "directories": {
       "buildResources": "build"
     },
-
     "win": {
       "target": "nsis",
       "icon": "build/icon.ico"
