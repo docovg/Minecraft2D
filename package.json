@@ -1,0 +1,15 @@
+{
+  "name": "minicraft-2d-electron-pro",
+  "version": "0.2.0",
+  "description": "Minecraft-like 2D game in Electron with LAN and world saves",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {
+    "ws": "^8.16.0"
+  },
+  "devDependencies": {
+    "electron": "^31.0.0"
+  }
+}

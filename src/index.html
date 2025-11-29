@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>MiniCraft 2D</title>
+<meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="game"></canvas>
+
+<div id="screens">
+  <div id="screen-main" class="screen active">
+    <div class="menu-panel">
+      <div class="menu-title">MiniCraft 2D</div>
+      <button class="menu-btn" id="btn-main-single">Solo</button>
+      <button class="menu-btn" id="btn-main-multi">Multijoueur LAN</button>
+      <button class="menu-btn" id="btn-main-quit">Quitter</button>
+    </div>
+  </div>
+
+  <div id="screen-singleplayer" class="screen">
+    <div class="menu-panel">
+      <div class="menu-title">Mondes solo</div>
+      <div id="world-list" class="world-list"></div>
+      <div class="world-buttons">
+        <button class="menu-btn small" id="btn-world-play">Jouer</button>
+        <button class="menu-btn small" id="btn-world-create">Créer un monde</button>
+        <button class="menu-btn small" id="btn-world-delete">Supprimer</button>
+      </div>
+      <button class="menu-btn" id="btn-world-back">Retour</button>
+    </div>
+  </div>
+
+  <div id="screen-create-world" class="screen">
+    <div class="menu-panel">
+      <div class="menu-title">Créer un monde</div>
+      <label class="menu-label">Nom du monde</label>
+      <input id="input-world-name" class="menu-input" placeholder="Mon monde 2D">
+      <label class="menu-label">Seed (optionnel)</label>
+      <input id="input-world-seed" class="menu-input" placeholder="laisse vide pour aléatoire">
+      <button class="menu-btn" id="btn-create-confirm">Créer</button>
+      <button class="menu-btn" id="btn-create-cancel">Annuler</button>
+    </div>
+  </div>
+
+  <div id="screen-multiplayer" class="screen">
+    <div class="menu-panel">
+      <div class="menu-title">Multijoueur LAN</div>
+      <div class="menu-info">
+        Pour héberger : lance un monde solo, ouvre le menu pause (Échap) puis clique sur "Ouvrir au LAN".
+      </div>
+      <label class="menu-label">Adresse du serveur LAN</label>
+      <input id="input-lan-host" class="menu-input" placeholder="ex: 192.168.0.12 ou localhost">
+      <button class="menu-btn" id="btn-lan-join">Rejoindre</button>
+      <button class="menu-btn" id="btn-lan-back">Retour</button>
+    </div>
+  </div>
+</div>
+
+<div id="hud-top" class="hud-top">
+  <div id="hearts"></div>
+</div>
+<div id="hotbar"></div>
+
+<div id="pause-overlay" class="overlay hidden">
+  <div class="menu-panel">
+    <div class="menu-title">Pause</div>
+    <button class="menu-btn" id="btn-pause-resume">Reprendre</button>
+    <button class="menu-btn" id="btn-pause-lan">Ouvrir au LAN</button>
+    <div id="lan-status" class="menu-info"></div>
+    <button class="menu-btn" id="btn-pause-savequit">Sauvegarder et quitter</button>
+  </div>
+</div>
+
+<div id="inventoryOverlay" class="overlay hidden">
+  <div id="inventoryWindow">
+    <div>
+      <div class="inv-section-title">Fabrication (3×3)</div>
+      <div class="craft-layout">
+        <div class="inv-grid craft-grid"></div>
+        <div class="slot craft-output"></div>
+      </div>
+      <div id="cursorInfo"></div>
+    </div>
+    <div>
+      <div class="inv-section-title">Inventaire</div>
+      <div class="inv-grid main-grid"></div>
+      <div class="inv-section-title" style="margin-top:8px">Barre rapide</div>
+      <div class="inv-grid hotbar-grid"></div>
+    </div>
+  </div>
+</div>
+
+<script src="worldgen.js"></script>
+<script src="network.js"></script>
+<script src="engine.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
