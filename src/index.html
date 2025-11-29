@@ -1,100 +1,140 @@
+<!-- src/index.html -->
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<title>MiniCraft 2D</title>
-<meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';">
-<link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <title>MiniCraft 2D</title>
+  <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="../icon.png">
 </head>
 <body>
-<canvas id="game"></canvas>
+  <canvas id="game"></canvas>
 
-<div id="screens">
+  <!-- Menu principal -->
   <div id="screen-main" class="screen active">
-    <div class="menu-panel">
+    <div class="menu-panel main-panel">
       <div class="menu-title">MiniCraft 2D</div>
       <button class="menu-btn" id="btn-main-single">Solo</button>
-      <button class="menu-btn" id="btn-main-multi">Multijoueur LAN</button>
+      <button class="menu-btn" id="btn-main-multi">Multijoueur</button>
+      <button class="menu-btn" id="btn-main-options">Options</button>
       <button class="menu-btn" id="btn-main-quit">Quitter</button>
     </div>
   </div>
 
-  <div id="screen-singleplayer" class="screen">
+  <!-- Solo -->
+  <div id="screen-single" class="screen">
     <div class="menu-panel">
-      <div class="menu-title">Mondes solo</div>
-      <div id="world-list" class="world-list"></div>
-      <div class="world-buttons">
-        <button class="menu-btn small" id="btn-world-play">Jouer</button>
-        <button class="menu-btn small" id="btn-world-create">Créer un monde</button>
-        <button class="menu-btn small" id="btn-world-delete">Supprimer</button>
+      <div class="menu-title">Solo</div>
+      <div class="menu-flex">
+        <div class="menu-column">
+          <div class="menu-subtitle">Mondes</div>
+          <div id="world-list" class="list-box"></div>
+          <div class="menu-row">
+            <button class="menu-btn small" id="btn-sp-play">Jouer</button>
+            <button class="menu-btn small" id="btn-sp-delete">Supprimer</button>
+          </div>
+          <div class="menu-info">Les mondes sont automatiquement sauvegardés.</div>
+        </div>
+        <div class="menu-column">
+          <div class="menu-subtitle">Nouveau monde</div>
+          <label class="menu-label">Nom</label>
+          <input id="input-new-world-name" class="menu-input" placeholder="Nouveau monde">
+          <label class="menu-label">Seed (optionnel)</label>
+          <input id="input-new-world-seed" class="menu-input" placeholder="">
+          <label class="menu-label">Difficulté (pour plus tard)</label>
+          <select id="select-new-difficulty" class="menu-input">
+            <option value="peaceful">Paisible</option>
+            <option value="easy">Facile</option>
+            <option value="normal" selected>Normal</option>
+            <option value="hard">Difficile</option>
+          </select>
+          <div class="menu-info">Actuellement tous les mondes sont en mode créatif.</div>
+          <button class="menu-btn" id="btn-sp-create">Créer et jouer</button>
+        </div>
       </div>
-      <button class="menu-btn" id="btn-world-back">Retour</button>
+      <button class="menu-btn" id="btn-sp-back">Retour</button>
     </div>
   </div>
 
-  <div id="screen-create-world" class="screen">
+  <!-- Multijoueur -->
+  <div id="screen-multi" class="screen">
     <div class="menu-panel">
-      <div class="menu-title">Créer un monde</div>
-      <label class="menu-label">Nom du monde</label>
-      <input id="input-world-name" class="menu-input" placeholder="Mon monde 2D">
-      <label class="menu-label">Seed (optionnel)</label>
-      <input id="input-world-seed" class="menu-input" placeholder="laisse vide pour aléatoire">
-      <button class="menu-btn" id="btn-create-confirm">Créer</button>
-      <button class="menu-btn" id="btn-create-cancel">Annuler</button>
-    </div>
-  </div>
+      <div class="menu-title">Multijoueur</div>
 
-  <div id="screen-multiplayer" class="screen">
-    <div class="menu-panel">
-      <div class="menu-title">Multijoueur LAN</div>
+      <div class="menu-subtitle">Serveurs</div>
+      <div id="server-list" class="list-box"></div>
+      <div class="menu-row">
+        <button class="menu-btn small" id="btn-mp-join">Rejoindre</button>
+        <button class="menu-btn small" id="btn-mp-add">Ajouter</button>
+        <button class="menu-btn small" id="btn-mp-remove">Supprimer</button>
+      </div>
+
+      <div class="menu-subtitle">Nouveau serveur</div>
+      <label class="menu-label">Nom du serveur</label>
+      <input id="input-server-name" class="menu-input" placeholder="Mon serveur LAN">
+      <label class="menu-label">Adresse (ws://...)</label>
+      <input id="input-server-address" class="menu-input" placeholder="ws://192.168.0.10:34567">
+
+      <div class="menu-subtitle">Connexion directe</div>
+      <label class="menu-label">Adresse</label>
+      <input id="input-direct-address" class="menu-input" value="ws://localhost:34567">
+      <button class="menu-btn small" id="btn-mp-direct">Connexion directe</button>
+
       <div class="menu-info">
-        Pour héberger : lance un monde solo, ouvre le menu pause (Échap) puis clique sur "Ouvrir au LAN".
+        Pour un monde LAN, lance une partie solo puis utilise "Ouvrir en LAN" dans le menu Pause.
       </div>
-      <label class="menu-label">Adresse du serveur LAN</label>
-      <input id="input-lan-host" class="menu-input" placeholder="ex: 192.168.0.12 ou localhost">
-      <button class="menu-btn" id="btn-lan-join">Rejoindre</button>
-      <button class="menu-btn" id="btn-lan-back">Retour</button>
+
+      <button class="menu-btn" id="btn-mp-back">Retour</button>
     </div>
   </div>
-</div>
 
-<div id="hud-top" class="hud-top">
-  <div id="hearts"></div>
-</div>
-<div id="hotbar"></div>
-
-<div id="pause-overlay" class="overlay hidden">
-  <div class="menu-panel">
-    <div class="menu-title">Pause</div>
-    <button class="menu-btn" id="btn-pause-resume">Reprendre</button>
-    <button class="menu-btn" id="btn-pause-lan">Ouvrir au LAN</button>
-    <div id="lan-status" class="menu-info"></div>
-    <button class="menu-btn" id="btn-pause-savequit">Sauvegarder et quitter</button>
+  <!-- Options -->
+  <div id="screen-options" class="screen">
+    <div class="menu-panel">
+      <div class="menu-title">Options</div>
+      <label class="menu-label">
+        <input type="checkbox" id="opt-debug"> Afficher le debug (F3)
+      </label>
+      <label class="menu-label">Vitesse de déplacement</label>
+      <input type="range" id="opt-move-speed" min="4" max="12" value="7" class="menu-input">
+      <div class="menu-info">Plus grand = plus rapide.</div>
+      <button class="menu-btn" id="btn-options-back">Retour</button>
+    </div>
   </div>
-</div>
 
-<div id="inventoryOverlay" class="overlay hidden">
-  <div id="inventoryWindow">
-    <div>
-      <div class="inv-section-title">Fabrication (3×3)</div>
-      <div class="craft-layout">
-        <div class="inv-grid craft-grid"></div>
-        <div class="slot craft-output"></div>
+  <!-- HUD -->
+  <div id="hud-top" class="hud-top">
+    <div id="hearts"></div>
+  </div>
+  <div id="hotbar"></div>
+  <div id="debug-overlay"></div>
+
+  <!-- Pause -->
+  <div id="pause-overlay" class="overlay hidden">
+    <div class="menu-panel">
+      <div class="menu-title">Pause</div>
+      <button class="menu-btn" id="btn-pause-resume">Reprendre</button>
+      <button class="menu-btn" id="btn-pause-lan">Ouvrir en LAN</button>
+      <button class="menu-btn" id="btn-pause-save-menu">Sauvegarder et retour menu</button>
+      <button class="menu-btn" id="btn-pause-quit">Quitter le jeu</button>
+    </div>
+  </div>
+
+  <!-- Inventaire créatif -->
+  <div id="inventory-overlay" class="overlay hidden">
+    <div class="menu-panel inv-panel">
+      <div class="menu-title">Inventaire créatif</div>
+      <div id="inv-grid" class="inv-grid"></div>
+      <div class="menu-info">
+        Clique sur un objet pour remplir le slot sélectionné de la barre rapide.
       </div>
-      <div id="cursorInfo"></div>
-    </div>
-    <div>
-      <div class="inv-section-title">Inventaire</div>
-      <div class="inv-grid main-grid"></div>
-      <div class="inv-section-title" style="margin-top:8px">Barre rapide</div>
-      <div class="inv-grid hotbar-grid"></div>
+      <button class="menu-btn small" id="btn-inv-close">Fermer (E)</button>
     </div>
   </div>
-</div>
 
-<script src="worldgen.js"></script>
-<script src="network.js"></script>
-<script src="engine.js"></script>
-<script src="game.js"></script>
+  <script src="worldgen.js"></script>
+  <script src="engine.js"></script>
+  <script src="game.js"></script>
 </body>
 </html>

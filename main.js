@@ -1,18 +1,41 @@
-const { app, BrowserWindow } = require('electron');
+// main.js
+const { app, BrowserWindow, Menu, ipcMain } = require('electron');
 const path = require('path');
 
+let mainWindow = null;
+
 function createWindow() {
-  const win = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 1280,
     height: 720,
+    minWidth: 960,
+    minHeight: 540,
+    title: 'MiniCraft 2D',
+    autoHideMenuBar: true,
+    frame: true,
+    fullscreenable: true,
+    icon: path.join(__dirname, 'icon.png'),
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false
-    },
-    title: 'MiniCraft 2D'
+    }
   });
-  win.loadFile(path.join(__dirname, 'src', 'index.html'));
+
+  Menu.setApplicationMenu(null);
+
+  mainWindow.loadFile(path.join(__dirname, 'src', 'index.html'));
+
+  mainWindow.on('closed', () => {
+    mainWindow = null;
+  });
 }
+
+ipcMain.on('toggle-fullscreen', () => {
+  const win = BrowserWindow.getFocusedWindow();
+  if (win) {
+    win.setFullScreen(!win.isFullScreen());
+  }
+});
 
 app.whenReady().then(() => {
   createWindow();

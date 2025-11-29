@@ -1,3 +1,4 @@
+/* src/style.css */
 html,body{
   margin:0;
   padding:0;
@@ -34,38 +35,53 @@ html,body{
   display:flex;
 }
 .menu-panel{
-  background:rgba(0,0,0,0.8);
+  background:rgba(0,0,0,0.85);
   border:2px solid #555;
   padding:20px;
   border-radius:8px;
-  min-width:320px;
-  max-width:480px;
+  min-width:360px;
+  max-width:620px;
   color:#fff;
-  box-shadow:0 0 12px rgba(0,0,0,0.7);
+  box-shadow:0 0 18px rgba(0,0,0,0.8);
+}
+.main-panel{
+  min-width:260px;
+  max-width:260px;
 }
 .menu-title{
-  font-size:26px;
+  font-size:28px;
   font-weight:bold;
   text-align:center;
   margin-bottom:16px;
   text-shadow:0 0 6px #000;
 }
+.menu-subtitle{
+  font-size:15px;
+  font-weight:600;
+  margin:8px 0 4px;
+}
 .menu-btn{
   width:100%;
   padding:8px 10px;
-  margin:4px 0;
+  margin:6px 0;
   background:#3c7a28;
   border:2px solid #264918;
   color:#fff;
   font-size:16px;
   cursor:pointer;
   border-radius:4px;
+  transition:background .15s, transform .1s;
 }
 .menu-btn.small{
   font-size:14px;
+  padding:6px 8px;
 }
 .menu-btn:hover{
   background:#4d9733;
+  transform:translateY(-1px);
+}
+.menu-btn:active{
+  transform:translateY(0);
 }
 .menu-input{
   width:100%;
@@ -75,6 +91,7 @@ html,body{
   border:1px solid #555;
   background:#222;
   color:#fff;
+  box-sizing:border-box;
 }
 .menu-label{
   font-size:13px;
@@ -83,32 +100,51 @@ html,body{
 }
 .menu-info{
   font-size:13px;
-  margin:6px 0;
+  margin:4px 0;
   opacity:0.9;
 }
-.world-list{
-  max-height:200px;
+.menu-flex{
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+}
+.menu-column{
+  flex:1;
+  min-width:0;
+}
+.menu-row{
+  display:flex;
+  gap:4px;
+  margin:4px 0 6px;
+}
+
+/* Listes */
+
+.list-box{
+  max-height:220px;
   overflow-y:auto;
   background:#111;
   border-radius:4px;
   border:1px solid #555;
   margin-bottom:8px;
 }
-.world-item{
+.list-item{
   padding:6px 8px;
   cursor:pointer;
   border-bottom:1px solid #333;
 }
-.world-item:last-child{
+.list-item:last-child{
   border-bottom:none;
 }
-.world-item.selected{
-  background:#2d5b16;
+.list-item-title{
+  font-size:14px;
 }
-.world-buttons{
-  display:flex;
-  gap:4px;
-  margin-bottom:8px;
+.list-item-sub{
+  font-size:11px;
+  opacity:0.75;
+}
+.list-item.selected{
+  background:#2d5b16;
 }
 
 /* HUD */
@@ -132,6 +168,7 @@ html,body{
   width:18px;
   height:18px;
 }
+
 #hotbar{
   position:absolute;
   left:50%;
@@ -179,38 +216,45 @@ html,body{
   display:none;
 }
 
-#inventoryWindow{
-  background:rgba(30,30,30,0.96);
-  padding:16px;
-  border-radius:8px;
-  display:grid;
-  grid-template-columns:auto auto;
-  gap:16px;
-  min-width:580px;
-  color:#fff;
-}
-.inv-section-title{
-  margin-bottom:4px;
-  font-size:13px;
-  opacity:0.8;
+/* Inventaire créatif */
+
+.inv-panel{
+  max-width:700px;
 }
 .inv-grid{
   display:grid;
   grid-template-columns:repeat(9,40px);
   grid-auto-rows:40px;
   gap:4px;
+  margin-bottom:8px;
 }
-.inv-grid.craft-grid{
-  grid-template-columns:repeat(3,40px);
-}
-.craft-layout{
-  display:grid;
-  grid-template-columns:auto 40px;
+.inv-item{
+  width:40px;
+  height:40px;
+  border-radius:4px;
+  border:2px solid #555;
+  box-sizing:border-box;
+  cursor:pointer;
+  display:flex;
   align-items:center;
-  gap:8px;
+  justify-content:center;
+  color:#fff;
+  font-size:10px;
+  background:#222;
 }
-#cursorInfo{
-  margin-top:8px;
+.inv-item:hover{
+  border-color:#fff;
+}
+
+/* Debug */
+
+#debug-overlay{
+  position:absolute;
+  left:8px;
+  top:8px;
+  z-index:6;
   font-size:12px;
-  opacity:0.9;
+  color:#fff;
+  text-shadow:0 0 4px #000;
+  pointer-events:none;
 }
